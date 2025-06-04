@@ -38,8 +38,16 @@ const MovieDetails = () => {
 
     return (
         <div>
-            <h2>{ }</h2>
+            <h2>{movie.title}</h2>
+            <p><strong>Release data:</strong> {movie.release_date}</p>
+            <p>{movie.overview}</p>
+            {movie.poster_path && (
+                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title} />
+            )}
         </div>
     )
 
 }
+
+export default MovieDetails
