@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useFavorites } from "../context/FavoritesContext";
 
 const Favorites = () => {
-    const { favorites, removeFavorite } = useFavorites()
+    const { favorites } = useFavorites()
 
     if (favorites.length === 0) {
         return <p>You don't have favorites</p>
