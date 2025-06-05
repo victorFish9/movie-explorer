@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getMovieDetails } from "../api/tmdb"
+import { useFavorites } from "../context/FavoritesContext"
 
 interface MovieDetails {
     id: number
@@ -15,6 +16,9 @@ const MovieDetails = () => {
     const [movie, setMovie] = useState<MovieDetails | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+
+    const { addFavorite, removeFavorite, isFavorite } = useFavorites()
+    const favorite = movie && isFavorite(movie.id)
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -37,7 +41,7 @@ const MovieDetails = () => {
     if (!movie) return <p>Film was not found:</p>
 
     return (
-        <div>
+        <>
             <h2>{movie.title}</h2>
             <p><strong>Release data:</strong> {movie.release_date}</p>
             <p>{movie.overview}</p>
@@ -45,7 +49,18 @@ const MovieDetails = () => {
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title} />
             )}
-        </div>
+
+            <button
+                onClick={() =>
+                    movie &&
+                    (favorite
+                        ? removeFavorite(movie.id)
+                        : addFavorite({ id: movie.id, title: movie.title, poster_path: movie.poster_path }))
+                }
+            >
+                {favorite ? 'Delete from favorite' : 'Add to favorite'}
+            </button>
+        </>
     )
 
 }
