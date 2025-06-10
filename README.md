@@ -1,5 +1,4 @@
-🔧 1. Movie Explorer (Movie Search)
-Description:
+🔧 1. Movie Explorer:
 An application for searching movies using a public API (TMDB).
 Users can search for movies, view details, and save favorites.
 
